@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: 'postgres'
+    volumes:
+      - /var/postgres:/var/lib/postgresql/data
+
+  gogs:
+    image: gogs/gogs
+    ports:
+      - "2222:22"
+      - "3000:3000"
+    volumes:
+      - /var/gogs:/data
+    links:
+      - db
